@@ -17,7 +17,10 @@ namespace settings {
     constexpr auto secret_layers = "secret-layers";
 };
 
-static std::unordered_map<std::string, std::vector<Hook*>> s_hooks;
+auto& sHooks() {  // lazy init for hooks map (thanks android)
+    static std::unordered_map<std::string, std::vector<std::weak_ptr<Hook>>> s_hooks;
+    return s_hooks;
+};
 
 #define FTDIN_HOOK_ALL(settingId)                                                      \
     static void onModify(auto& self) {                                                 \
@@ -30,32 +33,32 @@ static std::unordered_map<std::string, std::vector<Hook*>> s_hooks;
             hook->setAutoEnable(enable);                                               \
             (void)hook->toggle(enable);                                                \
                                                                                        \
-            s_hooks[settingId].push_back(hook.get());                                  \
+            sHooks()[settingId].push_back(hook);                                       \
         };                                                                             \
     }
 
-#define FTDIN_TOGGLE_HOOKS(settingId)       \
-    for (auto& hook : s_hooks[settingId]) { \
-        (void)hook->toggle(value);          \
+#define FTDIN_TOGGLE_HOOKS(settingId)                     \
+    for (auto& hook : sHooks()[settingId]) {              \
+        if (auto h = hook.lock()) (void)h->toggle(value); \
     }
 
 $on_mod(Loaded) {
     listenForSettingChanges<bool>(
         settings::edit_level_layer,
         [](bool value) {
-            FTDIN_TOGGLE_HOOKS(settings::edit_level_layer)
+            FTDIN_TOGGLE_HOOKS(settings::edit_level_layer);
         });
 
     listenForSettingChanges<bool>(
         settings::level_search_layer,
         [](bool value) {
-            FTDIN_TOGGLE_HOOKS(settings::level_search_layer)
+            FTDIN_TOGGLE_HOOKS(settings::level_search_layer);
         });
 
     listenForSettingChanges<bool>(
         settings::secret_layers,
         [](bool value) {
-            FTDIN_TOGGLE_HOOKS(settings::secret_layers)
+            FTDIN_TOGGLE_HOOKS(settings::secret_layers);
         });
 };
 
