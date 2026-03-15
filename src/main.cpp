@@ -17,7 +17,7 @@ namespace settings {
     constexpr auto secret_layers = "secret-layers";
 };
 
-static std::unordered_map<std::string, std::vector<std::weak_ptr<Hook>>> s_hooks;
+static std::unordered_map<std::string, std::vector<Hook*>> s_hooks;
 
 #define FTDIN_HOOK_ALL(settingId)                                                      \
     static void onModify(auto& self) {                                                 \
@@ -30,13 +30,13 @@ static std::unordered_map<std::string, std::vector<std::weak_ptr<Hook>>> s_hooks
             hook->setAutoEnable(enable);                                               \
             (void)hook->toggle(enable);                                                \
                                                                                        \
-            s_hooks[settingId].push_back(hook);                                        \
+            s_hooks[settingId].push_back(hook.get());                                  \
         };                                                                             \
     }
 
-#define FTDIN_TOGGLE_HOOKS(settingId)                     \
-    for (auto& hook : s_hooks[settingId]) {               \
-        if (auto h = hook.lock()) (void)h->toggle(value); \
+#define FTDIN_TOGGLE_HOOKS(settingId)       \
+    for (auto& hook : s_hooks[settingId]) { \
+        (void)hook->toggle(value);          \
     }
 
 $on_mod(Loaded) {
