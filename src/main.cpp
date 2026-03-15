@@ -72,8 +72,10 @@ class $modify(FTDINEditLevelLayer, EditLevelLayer) {
             log::trace("node {} found", name->getID());
 
             if (auto nameBg = getChildByID("level-name-background")) {
-                name->setContentWidth(nameBg->getScaledContentWidth() - 8.75f);
-                name->setContentHeight(nameBg->getScaledContentHeight());
+                name->setContentSize({
+                    nameBg->getScaledContentWidth() - 8.75f,
+                    nameBg->getScaledContentHeight(),
+                });
             };
         };
 
@@ -81,8 +83,10 @@ class $modify(FTDINEditLevelLayer, EditLevelLayer) {
             log::trace("node {} found", desc->getID());
 
             if (auto descBg = getChildByID("description-background")) {
-                desc->setContentWidth(descBg->getScaledContentWidth() - 8.75f);
-                desc->setContentHeight(descBg->getScaledContentHeight());
+                desc->setContentSize({
+                    descBg->getScaledContentWidth() - 8.75f,
+                    descBg->getScaledContentHeight(),
+                });
             };
         };
 
@@ -100,8 +104,10 @@ class $modify(FTDINLevelSearchLayer, LevelSearchLayer) {
             log::trace("node {} found", search->getID());
 
             if (auto searchBg = getChildByID("level-search-bar-bg")) {
-                search->setContentWidth(searchBg->getScaledContentWidth() - 7.5f);
-                search->setContentHeight(searchBg->getScaledContentHeight());
+                search->setContentSize({
+                    searchBg->getScaledContentWidth() - 7.5f,
+                    searchBg->getScaledContentHeight(),
+                });
             };
         };
 
@@ -119,8 +125,10 @@ class $modify(FTDINSecretLayer, SecretLayer) {
             log::trace("node {} found", box->getID());
 
             if (auto boxBg = getChildByID("textbox-background")) {
-                box->setContentWidth(boxBg->getScaledContentWidth() - 5.f);
-                box->setContentHeight(boxBg->getScaledContentHeight());
+                box->setContentSize({
+                    boxBg->getScaledContentWidth() - 5.f,
+                    boxBg->getScaledContentHeight(),
+                });
             };
         };
 
@@ -138,8 +146,10 @@ class $modify(FTDINSecretLayer2, SecretLayer2) {
             log::trace("node {} found", box->getID());
 
             if (auto boxBg = getChildByID("textbox-background")) {
-                box->setContentWidth(boxBg->getScaledContentWidth() - 5.f);
-                box->setContentHeight(boxBg->getScaledContentHeight());
+                box->setContentSize({
+                    boxBg->getScaledContentWidth() - 5.f,
+                    boxBg->getScaledContentHeight(),
+                });
             };
         };
 
@@ -157,8 +167,10 @@ class $modify(FTDINSecretLayer4, SecretLayer4) {
             log::trace("node {} found", box->getID());
 
             if (auto boxBg = getChildByID("textbox-background")) {
-                box->setContentWidth(boxBg->getScaledContentWidth() - 5.f);
-                box->setContentHeight(boxBg->getScaledContentHeight());
+                box->setContentSize({
+                    boxBg->getScaledContentWidth() - 5.f,
+                    boxBg->getScaledContentHeight(),
+                });
             };
         };
 
@@ -176,8 +188,10 @@ class $modify(FTDINSecretLayer5, SecretLayer5) {
             log::trace("node {} found", box->getID());
 
             if (auto boxBg = getChildByID("textbox-background")) {
-                box->setContentWidth(boxBg->getScaledContentWidth() - 5.f);
-                box->setContentHeight(boxBg->getScaledContentHeight());
+                box->setContentSize({
+                    boxBg->getScaledContentWidth() - 5.f,
+                    boxBg->getScaledContentHeight(),
+                });
             };
         };
 
