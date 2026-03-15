@@ -1,4 +1,4 @@
-# FixThoseDangInputNodes!
+# ![🎛](frame:GJ_extendedIcon_001.png?scale=0.875) FixThoseDangInputNodes!
 **Fix vanilla text input nodes' sizes.**
 
 *by [Cheeseworks](user:6408873)!*
@@ -8,7 +8,7 @@
 ---
 
 ## About
-A **lightweight mod to fix some sizing issues with RobTop's crazy `CCTextInputNode`s** across the game! Allows for toggling of this fix for specific UI pages.
+A **lightweight mod to fix some sizing issues with RobTop's crazy `CCTextInputNode`s** across the game! Primarily intended for mods that require use of said nodes. Allows for user to toggle of this fix for specific UI pages.
 
 ---
 

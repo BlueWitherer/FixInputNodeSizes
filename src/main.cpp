@@ -14,7 +14,6 @@ using namespace geode::prelude;
 namespace settings {
     constexpr auto edit_level_layer = "edit-level-layer";
     constexpr auto level_search_layer = "level-search-layer";
-    constexpr auto share_comment_layer = "share-comment-layer";
     constexpr auto secret_layers = "secret-layers";
 };
 
@@ -51,12 +50,6 @@ $on_mod(Loaded) {
         settings::level_search_layer,
         [](bool value) {
             FTDIN_TOGGLE_HOOKS(settings::level_search_layer)
-        });
-
-    listenForSettingChanges<bool>(
-        settings::share_comment_layer,
-        [](bool value) {
-            FTDIN_TOGGLE_HOOKS(settings::share_comment_layer)
         });
 
     listenForSettingChanges<bool>(
