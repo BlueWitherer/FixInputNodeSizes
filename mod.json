@@ -39,6 +39,12 @@
             "description": "Apply text input size fixes to the level search page.",
             "default": true
         },
+        "account-settings-layer": {
+            "type": "bool",
+            "name": "GJAccountSettingsLayer",
+            "description": "Apply text input size fixes to the profile settings pop-up.",
+            "default": true
+        },
         "secret-layers": {
             "type": "bool",
             "name": "All SecretLayers",

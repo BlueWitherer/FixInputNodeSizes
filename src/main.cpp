@@ -4,6 +4,7 @@
 
 #include <Geode/modify/EditLevelLayer.hpp>
 #include <Geode/modify/LevelSearchLayer.hpp>
+#include <Geode/modify/GJAccountSettingsLayer.hpp>
 #include <Geode/modify/SecretLayer.hpp>
 #include <Geode/modify/SecretLayer2.hpp>
 #include <Geode/modify/SecretLayer4.hpp>
@@ -14,6 +15,7 @@ using namespace geode::prelude;
 namespace settings {
     constexpr auto edit_level_layer = "edit-level-layer";
     constexpr auto level_search_layer = "level-search-layer";
+    constexpr auto account_settings_layer = "account-settings-layer";
     constexpr auto secret_layers = "secret-layers";
 };
 
@@ -53,6 +55,12 @@ $on_mod(Loaded) {
         settings::level_search_layer,
         [](bool value) {
             FTDIN_TOGGLE_HOOKS(settings::level_search_layer);
+        });
+
+    listenForSettingChanges<bool>(
+        settings::account_settings_layer,
+        [](bool value) {
+            FTDIN_TOGGLE_HOOKS(settings::account_settings_layer);
         });
 
     listenForSettingChanges<bool>(
@@ -108,6 +116,25 @@ class $modify(FTDINLevelSearchLayer, LevelSearchLayer) {
                     searchBg->getScaledContentWidth() - 7.5f,
                     searchBg->getScaledContentHeight(),
                 });
+            };
+        };
+
+        return true;
+    };
+};
+
+class $modify(FTDINGJAccountSettingsLayer, GJAccountSettingsLayer) {
+    FTDIN_HOOK_ALL(settings::account_settings_layer);
+
+    bool init(int accountID) {
+        if (!GJAccountSettingsLayer::init(accountID)) return false;
+
+        for (int i = 0; i < 7; i++) {
+            if (auto input = m_mainLayer->getChildByTag(i)) {
+                log::trace("node {} found", input->getID());
+
+                input->setContentWidth(input->getScaledContentWidth() - 2.5f);
+                input->setPositionY(input->getPositionY() - 1.f);
             };
         };
 

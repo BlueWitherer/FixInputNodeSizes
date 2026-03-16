@@ -24,6 +24,8 @@ If your mod **absolutely depends** on any of these fixes, feel free to include t
     "cheeseworks.fixinputnodesizes": ">=1.0.0"
 }
 ```
+> [!WARNING]
+> *Text input nodes in editor UI aren't currently accounted for.*
 
 ---
 

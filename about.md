@@ -19,6 +19,7 @@ If your mod <cr>**absolutely depends** on any of these fixes</c>, feel free to i
     "cheeseworks.fixinputnodesizes": ">=1.0.0"
 }
 ```
+> ![⚠️](frame:geode.loader/info-warning.png?scale=0.375) <cy>*Text input nodes in editor UI aren't currently accounted for.*</c>
 
 ---
 
