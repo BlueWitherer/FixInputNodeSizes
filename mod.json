@@ -27,6 +27,11 @@
     "dependencies": {
         "geode.node-ids": ">=1.22.0"
     },
+    "api": {
+        "include": [
+            "include/*.hpp"
+        ]
+    },
     "settings": {
         "edit-level-layer": {
             "type": "bool",
