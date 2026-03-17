@@ -3,7 +3,7 @@
 #include <Geode/Geode.hpp>
 
 using namespace geode::prelude;
-using namespace ftdin;
+using namespace inputnodefix;
 
 bool FixManager::isEnabledFor(std::string_view layer) const {
     return Mod::get()->getSettingValue<bool>(layer);

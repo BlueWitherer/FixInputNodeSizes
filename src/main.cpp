@@ -11,9 +11,9 @@
 #include <Geode/modify/SecretLayer5.hpp>
 
 using namespace geode::prelude;
-using namespace ftdin;
+using namespace inputnodefix;
 
-$on_mod(Loaded) {
+$on_game(Loaded) {
     listenForSettingChanges<bool>(
         layer::edit_level_layer,
         [](bool value) {

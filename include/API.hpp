@@ -21,7 +21,7 @@
 #include <Geode/loader/Hook.hpp>
 
 // Container for FixThoseDangInputNodes! API
-namespace ftdin {
+namespace inputnodefix {
     namespace layer {
         inline constexpr auto edit_level_layer = "edit-level-layer";
         inline constexpr auto level_search_layer = "level-search-layer";
@@ -38,25 +38,25 @@ namespace ftdin {
         static FixManager* get() noexcept;
 
         /// Check if hooks should be enabled for a specific layer
-        /// @param layer Setting ID for the layer (check `ftdin::layer`)
+        /// @param layer Setting ID for the layer (check `inputnodefix::layer`)
         /// @returns Whether these hooks should be enabled
         [[nodiscard]] bool isEnabledFor(std::string_view layer) const;
 
         /// Toggle all hooks registered for a specific layer
-        /// @param layer Setting ID for the layer (check `ftdin::layer`)
+        /// @param layer Setting ID for the layer (check `inputnodefix::layer`)
         /// @param enabled Whether to toggle on or off
         void toggle(geode::ZStringView layer, bool enabled);
 
         /// Register a hook from your modified class for a specific layer
         /// @param hook A shared pointer to the hook
-        /// @param layer Setting ID for the layer (check `ftdin::layer`)
+        /// @param layer Setting ID for the layer (check `inputnodefix::layer`)
         void registerHook(std::weak_ptr<geode::Hook> hook, geode::ZStringView layer);
     };
 };
 
 #define FTDIN_HOOK_ALL(settingId)                                                        \
     static void onModify(auto& self) {                                                   \
-        if (auto fm = ftdin::FixManager::get()) {                                        \
+        if (auto fm = inputnodefix::FixManager::get()) {                                 \
             geode::utils::StringMap<std::shared_ptr<geode::Hook>>& hooks = self.m_hooks; \
             auto enable = fm->isEnabledFor(settingId);                                   \
                                                                                          \

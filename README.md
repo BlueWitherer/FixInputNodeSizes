@@ -18,15 +18,15 @@ A **lightweight mod to fix some sizing issues with RobTop's crazy `CCTextInputNo
 ---
 
 ### Developers
-If your mod **absolutely depends** on any of these fixes, feel free to use this mod's API.
+If your mod **absolutely depends** on any of these fixes, feel free to use this mod's API. Be sure to follow its [documentation](./include/)!
 ```cpp
 class $modify(FTDINEditLevelLayer, EditLevelLayer) {
-    FTDIN_HOOK_ALL(ftdin::layer::edit_level_layer);
+    FTDIN_HOOK_ALL(inputnodefix::layer::edit_level_layer);
 
     bool init(GJGameLevel* level) {
         if (!EditLevelLayer::init(level)) return false;
 
-        // do stuff with the nodes
+        // do stuff with the text input nodes
 
         return true;
     };
