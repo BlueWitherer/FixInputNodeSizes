@@ -19,9 +19,10 @@
         "community": "https://www.dsc.gg/cheeseworks"
     },
     "tags": [
+        "api",
         "offline",
-        "bugfix",
-        "enhancement"
+        "universal",
+        "bugfix"
     ],
     "dependencies": {
         "geode.node-ids": ">=1.22.0"

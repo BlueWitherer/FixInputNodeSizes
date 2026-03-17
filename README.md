@@ -18,11 +18,19 @@ A **lightweight mod to fix some sizing issues with RobTop's crazy `CCTextInputNo
 ---
 
 ### Developers
-If your mod **absolutely depends** on any of these fixes, feel free to include this mod as a dependency.
-```json
-"dependencies": {
-    "cheeseworks.fixinputnodesizes": ">=1.0.0"
-}
+If your mod **absolutely depends** on any of these fixes, feel free to use this mod's API.
+```cpp
+class $modify(FTDINEditLevelLayer, EditLevelLayer) {
+    FTDIN_HOOK_ALL(ftdin::layer::edit_level_layer);
+
+    bool init(GJGameLevel* level) {
+        if (!EditLevelLayer::init(level)) return false;
+
+        // do stuff with the nodes
+
+        return true;
+    };
+};
 ```
 > [!WARNING]
 > *Text input nodes in editor UI aren't currently accounted for.*

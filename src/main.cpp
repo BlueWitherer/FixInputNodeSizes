@@ -1,4 +1,4 @@
-#include <ranges>
+#include <API.hpp>
 
 #include <Geode/Geode.hpp>
 
@@ -11,67 +11,36 @@
 #include <Geode/modify/SecretLayer5.hpp>
 
 using namespace geode::prelude;
-
-namespace settings {
-    constexpr auto edit_level_layer = "edit-level-layer";
-    constexpr auto level_search_layer = "level-search-layer";
-    constexpr auto account_settings_layer = "account-settings-layer";
-    constexpr auto secret_layers = "secret-layers";
-};
-
-auto& sHooks() {  // lazy init for hooks map (thanks android)
-    static std::unordered_map<std::string, std::vector<std::weak_ptr<Hook>>> s_hooks;
-    return s_hooks;
-};
-
-#define FTDIN_HOOK_ALL(settingId)                                                      \
-    static void onModify(auto& self) {                                                 \
-        utils::StringMap<std::shared_ptr<Hook>>& hooks = self.m_hooks;                 \
-        auto enable = Mod::get()->getSettingValue<bool>(settingId);                    \
-                                                                                       \
-        for (auto& hook : hooks | std::views::values) {                                \
-            (void)self.setHookPriorityPre(hook->getDisplayName(), Priority::FirstPre); \
-                                                                                       \
-            hook->setAutoEnable(enable);                                               \
-            (void)hook->toggle(enable);                                                \
-                                                                                       \
-            sHooks()[settingId].push_back(hook);                                       \
-        };                                                                             \
-    }
-
-#define FTDIN_TOGGLE_HOOKS(settingId)                     \
-    for (auto& hook : sHooks()[settingId]) {              \
-        if (auto h = hook.lock()) (void)h->toggle(value); \
-    }
+using namespace ftdin;
 
 $on_mod(Loaded) {
     listenForSettingChanges<bool>(
-        settings::edit_level_layer,
+        layer::edit_level_layer,
         [](bool value) {
-            FTDIN_TOGGLE_HOOKS(settings::edit_level_layer);
+            if (auto fm = FixManager::get()) fm->toggle(layer::edit_level_layer, value);
         });
 
     listenForSettingChanges<bool>(
-        settings::level_search_layer,
+        layer::level_search_layer,
         [](bool value) {
-            FTDIN_TOGGLE_HOOKS(settings::level_search_layer);
+            if (auto fm = FixManager::get()) fm->toggle(layer::level_search_layer, value);
         });
 
     listenForSettingChanges<bool>(
-        settings::account_settings_layer,
+        layer::account_settings_layer,
         [](bool value) {
-            FTDIN_TOGGLE_HOOKS(settings::account_settings_layer);
+            if (auto fm = FixManager::get()) fm->toggle(layer::account_settings_layer, value);
         });
 
     listenForSettingChanges<bool>(
-        settings::secret_layers,
+        layer::secret_layers,
         [](bool value) {
-            FTDIN_TOGGLE_HOOKS(settings::secret_layers);
+            if (auto fm = FixManager::get()) fm->toggle(layer::secret_layers, value);
         });
 };
 
 class $modify(FTDINEditLevelLayer, EditLevelLayer) {
-    FTDIN_HOOK_ALL(settings::edit_level_layer);
+    FTDIN_HOOK_ALL(layer::edit_level_layer);
 
     bool init(GJGameLevel* level) {
         if (!EditLevelLayer::init(level)) return false;
@@ -103,7 +72,7 @@ class $modify(FTDINEditLevelLayer, EditLevelLayer) {
 };
 
 class $modify(FTDINLevelSearchLayer, LevelSearchLayer) {
-    FTDIN_HOOK_ALL(settings::level_search_layer);
+    FTDIN_HOOK_ALL(layer::level_search_layer);
 
     bool init(int type) {
         if (!LevelSearchLayer::init(type)) return false;
@@ -124,7 +93,7 @@ class $modify(FTDINLevelSearchLayer, LevelSearchLayer) {
 };
 
 class $modify(FTDINGJAccountSettingsLayer, GJAccountSettingsLayer) {
-    FTDIN_HOOK_ALL(settings::account_settings_layer);
+    FTDIN_HOOK_ALL(layer::account_settings_layer);
 
     bool init(int accountID) {
         if (!GJAccountSettingsLayer::init(accountID)) return false;
@@ -143,7 +112,7 @@ class $modify(FTDINGJAccountSettingsLayer, GJAccountSettingsLayer) {
 };
 
 class $modify(FTDINSecretLayer, SecretLayer) {
-    FTDIN_HOOK_ALL(settings::secret_layers);
+    FTDIN_HOOK_ALL(layer::secret_layers);
 
     bool init() {
         if (!SecretLayer::init()) return false;
@@ -164,7 +133,7 @@ class $modify(FTDINSecretLayer, SecretLayer) {
 };
 
 class $modify(FTDINSecretLayer2, SecretLayer2) {
-    FTDIN_HOOK_ALL(settings::secret_layers);
+    FTDIN_HOOK_ALL(layer::secret_layers);
 
     bool init() {
         if (!SecretLayer2::init()) return false;
@@ -185,7 +154,7 @@ class $modify(FTDINSecretLayer2, SecretLayer2) {
 };
 
 class $modify(FTDINSecretLayer4, SecretLayer4) {
-    FTDIN_HOOK_ALL(settings::secret_layers);
+    FTDIN_HOOK_ALL(layer::secret_layers);
 
     bool init() {
         if (!SecretLayer4::init()) return false;
@@ -206,7 +175,7 @@ class $modify(FTDINSecretLayer4, SecretLayer4) {
 };
 
 class $modify(FTDINSecretLayer5, SecretLayer5) {
-    FTDIN_HOOK_ALL(settings::secret_layers);
+    FTDIN_HOOK_ALL(layer::secret_layers);
 
     bool init() {
         if (!SecretLayer5::init()) return false;
