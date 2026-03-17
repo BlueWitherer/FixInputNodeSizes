@@ -29,7 +29,7 @@ namespace ftdin {
         inline constexpr auto secret_layers = "secret-layers";
     };
 
-    class FixManager final {
+    class CW_FIXINPUTNODES_API_DLL FixManager final {
     private:
         std::unordered_map<std::string, std::vector<std::weak_ptr<geode::Hook>>> m_hooks;  // Map of registered hooks
 
