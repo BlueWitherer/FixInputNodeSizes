@@ -1,3 +1,4 @@
+#define INPUTNODEFIX_INTERNAL
 #include <API.hpp>
 
 #include <Geode/Geode.hpp>
@@ -40,7 +41,7 @@ $on_game(Loaded) {
 };
 
 class $modify(FTDINEditLevelLayer, EditLevelLayer) {
-    FTDIN_HOOK_ALL(layer::edit_level_layer);
+    INPUTNODEFIX_HOOK_ALL(layer::edit_level_layer);
 
     bool init(GJGameLevel* level) {
         if (!EditLevelLayer::init(level)) return false;
@@ -72,7 +73,7 @@ class $modify(FTDINEditLevelLayer, EditLevelLayer) {
 };
 
 class $modify(FTDINLevelSearchLayer, LevelSearchLayer) {
-    FTDIN_HOOK_ALL(layer::level_search_layer);
+    INPUTNODEFIX_HOOK_ALL(layer::level_search_layer);
 
     bool init(int type) {
         if (!LevelSearchLayer::init(type)) return false;
@@ -93,7 +94,7 @@ class $modify(FTDINLevelSearchLayer, LevelSearchLayer) {
 };
 
 class $modify(FTDINGJAccountSettingsLayer, GJAccountSettingsLayer) {
-    FTDIN_HOOK_ALL(layer::account_settings_layer);
+    INPUTNODEFIX_HOOK_ALL(layer::account_settings_layer);
 
     bool init(int accountID) {
         if (!GJAccountSettingsLayer::init(accountID)) return false;
@@ -112,7 +113,7 @@ class $modify(FTDINGJAccountSettingsLayer, GJAccountSettingsLayer) {
 };
 
 class $modify(FTDINSecretLayer, SecretLayer) {
-    FTDIN_HOOK_ALL(layer::secret_layers);
+    INPUTNODEFIX_HOOK_ALL(layer::secret_layers);
 
     bool init() {
         if (!SecretLayer::init()) return false;
@@ -133,7 +134,7 @@ class $modify(FTDINSecretLayer, SecretLayer) {
 };
 
 class $modify(FTDINSecretLayer2, SecretLayer2) {
-    FTDIN_HOOK_ALL(layer::secret_layers);
+    INPUTNODEFIX_HOOK_ALL(layer::secret_layers);
 
     bool init() {
         if (!SecretLayer2::init()) return false;
@@ -154,7 +155,7 @@ class $modify(FTDINSecretLayer2, SecretLayer2) {
 };
 
 class $modify(FTDINSecretLayer4, SecretLayer4) {
-    FTDIN_HOOK_ALL(layer::secret_layers);
+    INPUTNODEFIX_HOOK_ALL(layer::secret_layers);
 
     bool init() {
         if (!SecretLayer4::init()) return false;
@@ -175,7 +176,7 @@ class $modify(FTDINSecretLayer4, SecretLayer4) {
 };
 
 class $modify(FTDINSecretLayer5, SecretLayer5) {
-    FTDIN_HOOK_ALL(layer::secret_layers);
+    INPUTNODEFIX_HOOK_ALL(layer::secret_layers);
 
     bool init() {
         if (!SecretLayer5::init()) return false;

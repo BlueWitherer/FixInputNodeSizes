@@ -8,15 +8,15 @@
 ---
 
 ## About
-A **lightweight mod to fix some sizing issues with RobTop's crazy `CCTextInputNode`s** across the game! Primarily intended for mods that require use of said nodes. Allows for the user to toggle of this fix for specific UI pages.
+A **lightweight mod to fix some sizing issues with RobTop's crazy `CCTextInputNode`s** across the game! Primarily intended for other mods that require use of said nodes. Allows for the user to toggle this fix for specific UI pages.
 
 ---
 
 ### Developers
-If your mod <cr>**absolutely depends** on any of these fixes</c>, feel free to use this mod's API. Be sure to follow its [documentation](https://www.github.com/BlueWitherer/FixInputNodeSizes/tree/master/include/)!
+If your mod <cr>critically depends on any of these fixes</c>, feel free to use this mod's API. Be sure to follow its [documentation](https://www.github.com/BlueWitherer/FixInputNodeSizes/tree/master/include/)!
 ```cpp
 class $modify(FTDINEditLevelLayer, EditLevelLayer) {
-    FTDIN_HOOK_ALL(inputnodefix::layer::edit_level_layer);
+    INPUTNODEFIX_HOOK_ALL(inputnodefix::layer::edit_level_layer);
 
     bool init(GJGameLevel* level) {
         if (!EditLevelLayer::init(level)) return false;

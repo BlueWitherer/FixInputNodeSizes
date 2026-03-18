@@ -19,7 +19,7 @@ If your hooks depend on this mod fixing vanilla text input nodes in that specifi
 
 The process of delegating your hooks to this mod can be simplified into one macro.
 ```cpp
-FTDIN_HOOK_ALL(settingId);
+INPUTNODEFIX_HOOK_ALL(settingId);
 ```
 
 > [!NOTE]
@@ -28,7 +28,7 @@ FTDIN_HOOK_ALL(settingId);
 You can call this macro under any modified layer class as shown here.
 ```cpp
 class $modify(FTDINEditLevelLayer, EditLevelLayer) {
-    FTDIN_HOOK_ALL(inputnodefix::layer::edit_level_layer);
+    INPUTNODEFIX_HOOK_ALL(inputnodefix::layer::edit_level_layer);
 
     bool init(GJGameLevel* level) {
         if (!EditLevelLayer::init(level)) return false;

@@ -54,13 +54,23 @@ namespace inputnodefix {
     };
 };
 
-#define FTDIN_HOOK_ALL(settingId)                                                        \
+#ifdef INPUTNODEFIX_INTERNAL  // Do NOT define if using API from external mod!
+#define INPUTNODEFIX_HOOK_PRIORITY(hook)                                       \
+    (void)self.setHookPriorityPre(hook->getDisplayName(), Priority::FirstPre); \
+    log::trace("Hook priority for '{}' set to highest", hook->getDisplayName())
+#else
+#define INPUTNODEFIX_HOOK_PRIORITY(hook)
+#endif
+
+#define INPUTNODEFIX_HOOK_ALL(settingId)                                                 \
     static void onModify(auto& self) {                                                   \
         if (auto fm = inputnodefix::FixManager::get()) {                                 \
             geode::utils::StringMap<std::shared_ptr<geode::Hook>>& hooks = self.m_hooks; \
             auto enable = fm->isEnabledFor(settingId);                                   \
                                                                                          \
             for (auto& hook : hooks | std::views::values) {                              \
+                INPUTNODEFIX_HOOK_PRIORITY(hook);                                        \
+                                                                                         \
                 hook->setAutoEnable(enable);                                             \
                 (void)hook->toggle(enable);                                              \
                                                                                          \
