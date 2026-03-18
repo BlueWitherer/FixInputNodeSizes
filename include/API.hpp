@@ -33,6 +33,10 @@ namespace inputnodefix {
     private:
         std::unordered_map<std::string, std::vector<std::weak_ptr<geode::Hook>>> m_hooks;  // Map of registered hooks
 
+    protected:
+        // Check if a hook has already been registered
+        bool isHookRegistered(std::weak_ptr<geode::Hook> const& hook, geode::ZStringView layer) const noexcept;
+
     public:
         // Get the FixManager singleton
         static FixManager* get() noexcept;

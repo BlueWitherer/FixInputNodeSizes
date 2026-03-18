@@ -21,7 +21,8 @@
     "tags": [
         "offline",
         "universal",
-        "bugfix"
+        "bugfix",
+        "developer"
     ],
     "dependencies": {
         "geode.node-ids": ">=1.22.0"
