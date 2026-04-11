@@ -8,7 +8,7 @@
     },
     "id": "cheeseworks.fixinputnodesizes",
     "name": "FixThoseDangInputNodes!",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "developers": [
         "Cheeseworks"
     ],
@@ -19,6 +19,7 @@
         "community": "https://www.dsc.gg/cheeseworks"
     },
     "tags": [
+        "api",
         "offline",
         "universal",
         "bugfix",
@@ -45,10 +46,22 @@
             "description": "Apply text input size fixes to the level search page.",
             "default": true
         },
+        "write-message-popup": {
+            "type": "bool",
+            "name": "GJWriteMessagePopup",
+            "description": "Apply text input size fixes to the message pop-up.",
+            "default": true
+        },
         "account-settings-layer": {
             "type": "bool",
             "name": "GJAccountSettingsLayer",
             "description": "Apply text input size fixes to the profile settings pop-up.",
+            "default": true
+        },
+        "account-login-layer": {
+            "type": "bool",
+            "name": "AccountLoginLayer",
+            "description": "Apply text input size fixes to the account login pop-up.",
             "default": true
         },
         "secret-layers": {

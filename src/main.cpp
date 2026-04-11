@@ -5,7 +5,9 @@
 
 #include <Geode/modify/EditLevelLayer.hpp>
 #include <Geode/modify/LevelSearchLayer.hpp>
+#include <Geode/modify/GJWriteMessagePopup.hpp>
 #include <Geode/modify/GJAccountSettingsLayer.hpp>
+#include <Geode/modify/AccountLoginLayer.hpp>
 #include <Geode/modify/SecretLayer.hpp>
 #include <Geode/modify/SecretLayer2.hpp>
 #include <Geode/modify/SecretLayer4.hpp>
@@ -28,9 +30,21 @@ $on_game(Loaded) {
         });
 
     listenForSettingChanges<bool>(
+        layer::write_message_popup,
+        [](bool value) {
+            if (auto fm = FixManager::get()) fm->toggle(layer::write_message_popup, value);
+        });
+
+    listenForSettingChanges<bool>(
         layer::account_settings_layer,
         [](bool value) {
             if (auto fm = FixManager::get()) fm->toggle(layer::account_settings_layer, value);
+        });
+
+    listenForSettingChanges<bool>(
+        layer::account_login_layer,
+        [](bool value) {
+            if (auto fm = FixManager::get()) fm->toggle(layer::account_login_layer, value);
         });
 
     listenForSettingChanges<bool>(
@@ -93,6 +107,18 @@ class $modify(FTDINLevelSearchLayer, LevelSearchLayer) {
     };
 };
 
+class $modify(FTDINGJWriteMessagePopup, GJWriteMessagePopup) {
+    INPUTNODEFIX_HOOK_ALL(layer::write_message_popup);
+
+    bool init(int accountID, int messageID) {
+        if (!GJWriteMessagePopup::init(accountID, messageID)) return false;
+
+        if (auto subject = m_mainLayer->getChildByTag(0)) subject->setContentSize({subject->getScaledContentWidth() - 5.f, subject->getScaledContentHeight() - 25.f});
+
+        return true;
+    };
+};
+
 class $modify(FTDINGJAccountSettingsLayer, GJAccountSettingsLayer) {
     INPUTNODEFIX_HOOK_ALL(layer::account_settings_layer);
 
@@ -107,6 +133,19 @@ class $modify(FTDINGJAccountSettingsLayer, GJAccountSettingsLayer) {
                 input->setPositionY(input->getPositionY() - 1.f);
             };
         };
+
+        return true;
+    };
+};
+
+class $modify(FTDINAccountLoginLayer, AccountLoginLayer) {
+    INPUTNODEFIX_HOOK_ALL(layer::account_login_layer);
+
+    bool init(gd::string username) {
+        if (!AccountLoginLayer::init(std::move(username))) return false;
+
+        if (auto user = m_mainLayer->getChildByTag(1)) user->setContentSize({user->getScaledContentWidth() - 5.f, user->getScaledContentHeight() - 10.f});
+        if (auto pass = m_mainLayer->getChildByTag(2)) pass->setContentSize({pass->getScaledContentWidth() - 5.f, pass->getScaledContentHeight() - 10.f});
 
         return true;
     };

@@ -16,6 +16,7 @@
 
 #include <ranges>
 
+#include <Geode/utils/StringMap.hpp>
 #include <Geode/utils/ZStringView.hpp>
 
 #include <Geode/loader/Hook.hpp>
@@ -25,13 +26,15 @@ namespace inputnodefix {
     namespace layer {
         inline constexpr auto edit_level_layer = "edit-level-layer";
         inline constexpr auto level_search_layer = "level-search-layer";
+        inline constexpr auto write_message_popup = "write-message-popup";
         inline constexpr auto account_settings_layer = "account-settings-layer";
+        inline constexpr auto account_login_layer = "account-login-layer";
         inline constexpr auto secret_layers = "secret-layers";
     };
 
     class CW_FIXINPUTNODES_API_DLL FixManager final {
     private:
-        std::unordered_map<std::string, std::vector<std::weak_ptr<geode::Hook>>> m_hooks;  // Map of registered hooks
+        geode::utils::StringMap<std::vector<std::weak_ptr<geode::Hook>>> m_hooks;  // Map of registered hooks
 
     protected:
         // Check if a hook has already been registered

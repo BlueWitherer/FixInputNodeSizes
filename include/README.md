@@ -1,11 +1,11 @@
-# [<img src="../logo.png" width="25" alt="The mod's logo." />](https://www.geode-sdk.org/mods/cheeseworks.fixinputnodesizes) FixThoseDangInputNodes!
+# [<img src="../logo.png" width="25" alt="The mod's logo." />](https://geode-sdk.org/mods/cheeseworks.fixinputnodesizes) FixThoseDangInputNodes!
 Fix vanilla text input nodes' sizes.
 
 ## Development
 Let's start off by adding this mod as a dependency in your `mod.json`!
 ```jsonc
 "dependencies": {
-    "cheeseworks.fixinputnodesizes": ">=1.0.0"
+    "cheeseworks.fixinputnodesizes": ">=1.1.0"
 }
 ```
 
@@ -23,7 +23,15 @@ INPUTNODEFIX_HOOK_ALL(settingId);
 ```
 
 > [!NOTE]
-> The `settingId` parameter expects a string provided by the **`inputnodefix::layer`** namespace. Use the string that belongs to the name of the layer you hook.
+> The *`settingId`* parameter expects a string provided by the **`inputnodefix::layer`** namespace. Use the string that belongs to the name of the layer you hook.
+> 
+> Available IDs are the following.
+> - `edit_level_layer`
+> - `level_search_layer`
+> - `write_message_popup`
+> - `account_settings_layer`
+> - `account_login_layer`
+> - `secret_layers`
 
 You can call this macro under any modified layer class as shown here.
 ```cpp
@@ -33,14 +41,14 @@ class $modify(FTDINEditLevelLayer, EditLevelLayer) {
     bool init(GJGameLevel* level) {
         if (!EditLevelLayer::init(level)) return false;
 
-        // do stuff with the text input nodes
+        // do some probably cool stuff with the text input nodes
 
         return true;
     };
 };
 ```
-This will expand into a `static void onModify(auto& self)` that handles hook registration for you.
+This will expand into a `static void onModify(auto& self)` function that handles hook registration for you.
 
-If done properly, your hooks will now only fire when the mod setting for the layer they hook is enabled.
+If done properly, your hooks will now only be called when the mod setting for the layer they hook is enabled.
 
 *Happy modding!*
