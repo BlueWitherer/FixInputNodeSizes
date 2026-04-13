@@ -1,6 +1,6 @@
 # v1.1.0 
-- Added fixes for `GJWriteMessagePopup`
-- Added fixes for `AccountLoginLayer`
+- Added input node fixes for `GJWriteMessagePopup`
+- Added input node fixes for `AccountLoginLayer`
 - Added `API` mod tag
 - Optimized hook storage
 
