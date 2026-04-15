@@ -28,6 +28,8 @@ INPUTNODEFIX_HOOK_ALL(settingId);
 > Available IDs are the following.
 > - `edit_level_layer`
 > - `level_search_layer`
+> - `more_options_layer`
+> - `share_comment_layer`
 > - `write_message_popup`
 > - `account_settings_layer`
 > - `account_login_layer`
