@@ -26,6 +26,8 @@ namespace inputnodefix {
     namespace layer {
         inline constexpr auto edit_level_layer = "edit-level-layer";
         inline constexpr auto level_search_layer = "level-search-layer";
+        inline constexpr auto more_options_layer = "more-options-layer";
+        inline constexpr auto share_comment_layer = "share-comment-layer";
         inline constexpr auto write_message_popup = "write-message-popup";
         inline constexpr auto account_settings_layer = "account-settings-layer";
         inline constexpr auto account_login_layer = "account-login-layer";

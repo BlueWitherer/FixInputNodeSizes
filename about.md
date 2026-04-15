@@ -8,7 +8,7 @@
 ---
 
 ## About
-A **lightweight mod to fix some sizing issues with RobTop's crazy `CCTextInputNode`s** across the game! Primarily intended for other mods that require use of said nodes. Allows for the user to toggle this fix for specific UI pages.
+A **lightweight mod to simply fix some sizing issues with RobTop's crazy `CCTextInputNode`s** across the game! Primarily intended for other mods that require use of said nodes. Allows for the user to toggle this fix for specific UI pages.
 
 ---
 
@@ -21,7 +21,7 @@ class $modify(FTDINEditLevelLayer, EditLevelLayer) {
     bool init(GJGameLevel* level) {
         if (!EditLevelLayer::init(level)) return false;
 
-        // do stuff with the text input nodes
+        // do stuff with those text input nodes
 
         return true;
     };

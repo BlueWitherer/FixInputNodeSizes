@@ -20,10 +20,11 @@
     },
     "tags": [
         "api",
+        "developer",
         "offline",
         "universal",
-        "bugfix",
-        "developer"
+        "interface",
+        "bugfix"
     ],
     "dependencies": {
         "geode.node-ids": ">=1.22.0"
@@ -44,6 +45,18 @@
             "type": "bool",
             "name": "LevelSearchLayer",
             "description": "Apply text input size fixes to the level search page.",
+            "default": true
+        },
+        "more-options-layer": {
+            "type": "bool",
+            "name": "MoreOptionsLayer",
+            "description": "Apply text input size fixes to the game settings pop-up.",
+            "default": true
+        },
+        "share-comment-layer": {
+            "type": "bool",
+            "name": "ShareCommentLayer",
+            "description": "Apply text input size fixes to the comment pop-up.",
             "default": true
         },
         "write-message-popup": {

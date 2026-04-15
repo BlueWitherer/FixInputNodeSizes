@@ -5,6 +5,8 @@
 
 #include <Geode/modify/EditLevelLayer.hpp>
 #include <Geode/modify/LevelSearchLayer.hpp>
+#include <Geode/modify/MoreOptionsLayer.hpp>
+#include <Geode/modify/ShareCommentLayer.hpp>
 #include <Geode/modify/GJWriteMessagePopup.hpp>
 #include <Geode/modify/GJAccountSettingsLayer.hpp>
 #include <Geode/modify/AccountLoginLayer.hpp>
@@ -27,6 +29,18 @@ $on_game(Loaded) {
         layer::level_search_layer,
         [](bool value) {
             if (auto fm = FixManager::get()) fm->toggle(layer::level_search_layer, value);
+        });
+
+    listenForSettingChanges<bool>(
+        layer::more_options_layer,
+        [](bool value) {
+            if (auto fm = FixManager::get()) fm->toggle(layer::more_options_layer, value);
+        });
+
+    listenForSettingChanges<bool>(
+        layer::share_comment_layer,
+        [](bool value) {
+            if (auto fm = FixManager::get()) fm->toggle(layer::share_comment_layer, value);
         });
 
     listenForSettingChanges<bool>(
@@ -92,16 +106,41 @@ class $modify(FTDINLevelSearchLayer, LevelSearchLayer) {
     bool init(int type) {
         if (!LevelSearchLayer::init(type)) return false;
 
-        if (auto search = getChildByID("search-bar")) {
-            log::trace("node {} found", search->getID());
-
-            if (auto searchBg = getChildByID("level-search-bar-bg")) {
-                search->setContentSize({
-                    searchBg->getScaledContentWidth() - 7.5f,
-                    searchBg->getScaledContentHeight(),
-                });
-            };
+        if (auto searchBg = getChildByID("level-search-bar-bg")) {
+            m_searchInput->setContentSize({
+                searchBg->getScaledContentWidth() - 7.5f,
+                searchBg->getScaledContentHeight(),
+            });
         };
+
+        return true;
+    };
+};
+
+class $modify(FTDINMoreOptionsLayer, MoreOptionsLayer) {
+    INPUTNODEFIX_HOOK_ALL(layer::more_options_layer);
+
+    bool init() {
+        if (!MoreOptionsLayer::init()) return false;
+
+        if (auto musicBg = m_mainLayer->getChildByID("music-offset-background")) {
+            m_offsetInput->setContentSize({
+                musicBg->getScaledContentWidth() - 5.f,
+                musicBg->getScaledContentHeight(),
+            });
+        };
+
+        return true;
+    };
+};
+
+class $modify(FTDINShareCommentLayer, ShareCommentLayer) {
+    INPUTNODEFIX_HOOK_ALL(layer::share_comment_layer);
+
+    bool init(gd::string title, int charLimit, CommentType type, int ID, gd::string desc) {
+        if (!ShareCommentLayer::init(std::move(title), charLimit, type, ID, std::move(desc))) return false;
+
+        m_commentInput->setContentSize({m_commentInput->getScaledContentWidth() - 3.75f, m_commentInput->getScaledContentHeight() - 1.25f});
 
         return true;
     };
@@ -113,7 +152,8 @@ class $modify(FTDINGJWriteMessagePopup, GJWriteMessagePopup) {
     bool init(int accountID, int messageID) {
         if (!GJWriteMessagePopup::init(accountID, messageID)) return false;
 
-        if (auto subject = m_mainLayer->getChildByTag(0)) subject->setContentSize({subject->getScaledContentWidth() - 5.f, subject->getScaledContentHeight() - 25.f});
+        m_subjectInput->setContentSize({m_subjectInput->getScaledContentWidth() - 5.f, m_subjectInput->getScaledContentHeight() - 25.f});
+        m_messageInput->setContentSize({m_messageInput->getScaledContentWidth() - 5.f, m_messageInput->getScaledContentHeight() - 2.5f});
 
         return true;
     };
@@ -144,8 +184,8 @@ class $modify(FTDINAccountLoginLayer, AccountLoginLayer) {
     bool init(gd::string username) {
         if (!AccountLoginLayer::init(std::move(username))) return false;
 
-        if (auto user = m_mainLayer->getChildByTag(1)) user->setContentSize({user->getScaledContentWidth() - 5.f, user->getScaledContentHeight() - 10.f});
-        if (auto pass = m_mainLayer->getChildByTag(2)) pass->setContentSize({pass->getScaledContentWidth() - 5.f, pass->getScaledContentHeight() - 10.f});
+        m_usernameInput->setContentSize({m_usernameInput->getScaledContentWidth() - 5.f, m_usernameInput->getScaledContentHeight() - 10.f});
+        m_passwordInput->setContentSize({m_passwordInput->getScaledContentWidth() - 5.f, m_passwordInput->getScaledContentHeight() - 10.f});
 
         return true;
     };
@@ -157,15 +197,11 @@ class $modify(FTDINSecretLayer, SecretLayer) {
     bool init() {
         if (!SecretLayer::init()) return false;
 
-        if (auto box = getChildByID("text-box")) {
-            log::trace("node {} found", box->getID());
-
-            if (auto boxBg = getChildByID("textbox-background")) {
-                box->setContentSize({
-                    boxBg->getScaledContentWidth() - 5.f,
-                    boxBg->getScaledContentHeight(),
-                });
-            };
+        if (auto boxBg = getChildByID("textbox-background")) {
+            m_searchInput->setContentSize({
+                boxBg->getScaledContentWidth() - 5.f,
+                boxBg->getScaledContentHeight(),
+            });
         };
 
         return true;
@@ -178,15 +214,11 @@ class $modify(FTDINSecretLayer2, SecretLayer2) {
     bool init() {
         if (!SecretLayer2::init()) return false;
 
-        if (auto box = getChildByID("text-box")) {
-            log::trace("node {} found", box->getID());
-
-            if (auto boxBg = getChildByID("textbox-background")) {
-                box->setContentSize({
-                    boxBg->getScaledContentWidth() - 5.f,
-                    boxBg->getScaledContentHeight(),
-                });
-            };
+        if (auto boxBg = getChildByID("textbox-background")) {
+            m_searchInput->setContentSize({
+                boxBg->getScaledContentWidth() - 5.f,
+                boxBg->getScaledContentHeight(),
+            });
         };
 
         return true;
@@ -199,15 +231,11 @@ class $modify(FTDINSecretLayer4, SecretLayer4) {
     bool init() {
         if (!SecretLayer4::init()) return false;
 
-        if (auto box = getChildByID("text-box")) {
-            log::trace("node {} found", box->getID());
-
-            if (auto boxBg = getChildByID("textbox-background")) {
-                box->setContentSize({
-                    boxBg->getScaledContentWidth() - 5.f,
-                    boxBg->getScaledContentHeight(),
-                });
-            };
+        if (auto boxBg = getChildByID("textbox-background")) {
+            m_searchInput->setContentSize({
+                boxBg->getScaledContentWidth() - 5.f,
+                boxBg->getScaledContentHeight(),
+            });
         };
 
         return true;
@@ -220,15 +248,11 @@ class $modify(FTDINSecretLayer5, SecretLayer5) {
     bool init() {
         if (!SecretLayer5::init()) return false;
 
-        if (auto box = getChildByID("text-box")) {
-            log::trace("node {} found", box->getID());
-
-            if (auto boxBg = getChildByID("textbox-background")) {
-                box->setContentSize({
-                    boxBg->getScaledContentWidth() - 5.f,
-                    boxBg->getScaledContentHeight(),
-                });
-            };
+        if (auto boxBg = getChildByID("textbox-background")) {
+            m_textInput->setContentSize({
+                boxBg->getScaledContentWidth() - 5.f,
+                boxBg->getScaledContentHeight(),
+            });
         };
 
         return true;
