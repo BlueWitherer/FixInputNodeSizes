@@ -140,7 +140,7 @@ class $modify(FTDINShareCommentLayer, ShareCommentLayer) {
     bool init(gd::string title, int charLimit, CommentType type, int ID, gd::string desc) {
         if (!ShareCommentLayer::init(std::move(title), charLimit, type, ID, std::move(desc))) return false;
 
-        m_commentInput->setContentSize({m_commentInput->getScaledContentWidth() - 3.75f, m_commentInput->getScaledContentHeight() - 1.25f});
+        m_commentInput->setContentSize({m_commentInput->getScaledContentWidth() - 5.f, m_commentInput->getScaledContentHeight() - 2.5f});
 
         return true;
     };
@@ -248,12 +248,10 @@ class $modify(FTDINSecretLayer5, SecretLayer5) {
     bool init() {
         if (!SecretLayer5::init()) return false;
 
-        if (auto boxBg = getChildByID("textbox-background")) {
-            m_textInput->setContentSize({
-                boxBg->getScaledContentWidth() - 5.f,
-                boxBg->getScaledContentHeight(),
-            });
-        };
+        m_textInput->setContentSize({
+            m_inputBackground->getScaledContentWidth() - 5.f,
+            m_inputBackground->getScaledContentHeight(),
+        });
 
         return true;
     };
